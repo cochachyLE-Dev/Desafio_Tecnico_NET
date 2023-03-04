@@ -20,10 +20,11 @@ docker run -d -p 5002:80 --name app desafio-app
 ```
 
 ```ps
-docker container ls
+docker container ls --all
 ```
 
 ```ps
+docker container start [CONTAINER_ID]
 docker container stop [CONTAINER_ID]
 docker container rm [CONTAINER_ID]
 ```
