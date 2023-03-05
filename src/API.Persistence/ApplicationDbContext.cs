@@ -6,7 +6,8 @@ namespace API.Persistence
 {
     public class ApplicationDbContext : DbContext, IApplicationDbContext
     {
-        public ApplicationDbContext(){}        
+        public ApplicationDbContext(){}
+        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options){}
         public DbSet<Sale>? Sales { get; set; }
         public DbSet<SaleDetail>? SaleDetails { get; set; }
         public DbSet<Seller>? Sellers { get; set; }
