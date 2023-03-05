@@ -6,6 +6,7 @@ namespace API.Persistence
 {
     public class ApplicationDbContext : DbContext, IApplicationDbContext
     {
+        public ApplicationDbContext(){}        
         public DbSet<Sale>? Sales { get; set; }
         public DbSet<SaleDetail>? SaleDetails { get; set; }
         public DbSet<Seller>? Sellers { get; set; }
@@ -29,3 +30,4 @@ namespace API.Persistence
         }
     }
 }
+
