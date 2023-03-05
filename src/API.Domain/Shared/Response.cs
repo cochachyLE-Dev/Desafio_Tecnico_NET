@@ -17,6 +17,15 @@ namespace API.Domain.Shared
                 Message = message
             };
         }
+        public static Response Success(string message)
+        {
+            return new Response()
+            {
+                Successed = true,
+                Code = StatusCode.OK,
+                Message = message
+            };
+        }
     }
     public class Response<TEntity> : Response
     {
@@ -24,6 +33,36 @@ namespace API.Domain.Shared
         public TEntity? Entity { get; set; }
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
         public IEnumerable<TEntity>? List { get; set; }
+
+        public static new Response<TEntity> Fail(StatusCode statusCode, string? message = null)
+        {
+            return new Response<TEntity>()
+            {
+                Successed = false,
+                Code = statusCode,
+                Message = message
+            };
+        }
+        public static Response<TEntity> Success(IEnumerable<TEntity> list, string? message = null)
+        {
+            return new Response<TEntity>()
+            {
+                Successed = true,
+                Code = StatusCode.OK,
+                Message = message,
+                List = list
+            };
+        }
+        public static Response<TEntity> Success(TEntity entity, string message)
+        {
+            return new Response<TEntity>()
+            {
+                Successed = true,
+                Code = StatusCode.OK,
+                Message = message,
+                Entity = entity
+            };
+        }
     }
     public enum StatusCode
     {
