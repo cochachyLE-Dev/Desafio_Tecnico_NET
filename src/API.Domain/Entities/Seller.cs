@@ -3,10 +3,10 @@
     // Asesores comerciales (Vendedores)
     public class Seller
     {
-        public int Id { get; set; }
-        public string? FirstName { get; set; }
-        public string? LastName { get; set; }
-
-        public string FullName => $"{FirstName} {LastName}";
+        public int Id { get; set; }        
+        public string? Name { get; set; }
+        public string? Role { get; set; }
+        public bool OutSourced { get; set; }
+        public bool Active { get; set; }        
     }
 }

@@ -7,6 +7,7 @@ namespace API.Domain.Shared
     {
         public bool Successed { get; set; }
         public StatusCode Code { get; set; }
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
         public string? Message { get; set; }
         public static Response Fail(StatusCode statusCode, string message)
         {
@@ -53,7 +54,7 @@ namespace API.Domain.Shared
                 List = list
             };
         }
-        public static Response<TEntity> Success(TEntity entity, string message)
+        public static Response<TEntity> Success(TEntity entity, string? message = null)
         {
             return new Response<TEntity>()
             {

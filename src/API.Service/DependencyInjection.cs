@@ -1,9 +1,8 @@
-﻿using API.Domain.Shared;
-using API.Service.Contract;
+﻿using API.Domain.Settings;
+using API.Domain.Shared;
 
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
@@ -17,20 +16,12 @@ namespace API.Service
 {
     public static class DependencyInjection
     {
-        public static void AddServiceLayer(this IServiceCollection services)
+        public static void AddServiceLayer(this IServiceCollection serviceCollection)
         {
-            services.AddMediatR(o => {
-                o.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly());
-            });            
-        }
-        public static IServiceCollection AddCurrentUserService(this IServiceCollection services)
-        {
-            services.AddHttpContextAccessor();
-            services.AddScoped<ICurrentUserService, ICurrentUserService>();
-            return services;
-        }
-        public static void AddIdentityService(this IServiceCollection services, IConfiguration configuration) {
-            services.AddAuthentication(options => {
+            serviceCollection.AddMediatR(o => o.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()));            
+        }       
+        public static void AddAuthenticationService(this IServiceCollection serviceCollection, IConfiguration configuration) {
+            serviceCollection.AddAuthentication(options => {
                 options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
                 options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
             }).AddJwtBearer(o => {
@@ -85,6 +76,10 @@ namespace API.Service
                     }
                 };
             });
+        }
+        public static void AddSettings(this IServiceCollection serviceCollection, IConfiguration configuration)
+        {
+            serviceCollection.Configure<JWTSettings>(configuration.GetSection("JWTSettings"));
         }
     }
 }

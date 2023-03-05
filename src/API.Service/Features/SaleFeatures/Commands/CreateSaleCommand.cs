@@ -40,8 +40,11 @@ namespace API.Service.Features.SaleFeatures.Commands
                     sale.Serie = request.Serie;
                     sale.SellerId = request.SellerId;
                     sale.Total = request.Total;
-
                     _context.Sales?.Add(sale);
+
+                    if (request.SaleDetails!.Any())
+                        _context.SaleDetails!.AddRange(request.SaleDetails!);
+
                     await _context.SaveChangesAsync();
                 }
                 catch (Exception ex)

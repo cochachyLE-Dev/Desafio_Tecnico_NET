@@ -1,5 +1,6 @@
 ﻿using API.Domain.Entities;
 using API.Persistence;
+using API.Persistence.Seeds;
 using API.Service.Contract;
 using API.Service.Implementation;
 
@@ -27,8 +28,25 @@ namespace API.Infrastructure.Extension
         {
             serviceCollection.AddScoped((Func<IServiceProvider, IApplicationDbContext>)(provider =>
             {
-                ApplicationDbContext? applicationDbContext = provider.GetService<ApplicationDbContext>();
-                return applicationDbContext!;
+                ApplicationDbContext applicationDbContext = provider.GetService<ApplicationDbContext>()!;
+
+                var task = Task.Run(async () =>
+                {
+                    foreach (var seller in DefaultSellers.SellerList())
+                    { 
+                        if (!await applicationDbContext.Sellers!.AnyAsync(c => c.Id == seller.Id))
+                            applicationDbContext.Sellers!.Add(seller);
+                    }
+                    foreach (var service in DefaultServices.ServiceList())
+                    {
+                        if (!await applicationDbContext.Services!.AnyAsync(c => c.Id == service.Id))
+                            applicationDbContext.Services!.Add(service);
+                    }
+                    
+                    await applicationDbContext.SaveChangesAsync();
+                });
+                task.Wait();
+                return applicationDbContext;
             }));
 
             serviceCollection.AddHttpContextAccessor();
@@ -36,7 +54,7 @@ namespace API.Infrastructure.Extension
         }
         public static void AddTransientServices(this IServiceCollection serviceCollection)
         {
-            serviceCollection.AddTransient<IAccountService, IAccountService>();
+            serviceCollection.AddTransient<IAccountService, AccountService>();
         }
         public static void AddSwaggerOpenAPI(this IServiceCollection serviceCollection)
         {
@@ -47,8 +65,7 @@ namespace API.Infrastructure.Extension
                     new OpenApiInfo()
                     {
                         Title = "Desafío Técnico .NET WebAPI",
-                        Version = "1",
-                        Description = "...",
+                        Version = "1",                        
                         Contact = new OpenApiContact()
                         {
                             Email = "luis.cochachi@vaetech.net",

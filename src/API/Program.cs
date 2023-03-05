@@ -12,10 +12,12 @@ builder.Services.AddControllers();
 IConfiguration configuration = builder.Configuration;
 
 builder.Services.AddDbContext(configuration);
-builder.Services.AddIdentityService(configuration);
-builder.Services.AddScopedService();
-builder.Services.AddSwaggerOpenAPI();
+builder.Services.AddAuthenticationService(configuration);
+builder.Services.AddSettings(configuration);
 builder.Services.AddServiceLayer();
+builder.Services.AddScopedService();
+builder.Services.AddTransientServices();
+builder.Services.AddSwaggerOpenAPI();
 //builder.Services.AddFeatureManagement();
 
 var app = builder.Build();
