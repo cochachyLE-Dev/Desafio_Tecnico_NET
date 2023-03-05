@@ -1,5 +1,7 @@
-﻿using API.Persistence;
+﻿using API.Domain.Entities;
+using API.Persistence;
 using API.Service.Contract;
+using API.Service.Implementation;
 
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -23,11 +25,14 @@ namespace API.Infrastructure.Extension
         }
         public static void AddScopedService(this IServiceCollection serviceCollection)
         {
-            _ = serviceCollection.AddScoped((Func<IServiceProvider, IApplicationDbContext>)(provider =>
+            serviceCollection.AddScoped((Func<IServiceProvider, IApplicationDbContext>)(provider =>
             {
                 ApplicationDbContext? applicationDbContext = provider.GetService<ApplicationDbContext>();
                 return applicationDbContext!;
             }));
+
+            serviceCollection.AddHttpContextAccessor();
+            serviceCollection.AddScoped<ICurrentUserService, CurrentUserService>();
         }
         public static void AddTransientServices(this IServiceCollection serviceCollection)
         {
