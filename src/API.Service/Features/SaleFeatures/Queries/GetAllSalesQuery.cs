@@ -7,6 +7,7 @@ using MediatR;
 using Microsoft.EntityFrameworkCore;
 
 using System;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -23,8 +24,9 @@ namespace API.Service.Features.SaleFeatures.Queries
             public async Task<Response<Sale>> Handle(GetAllSalesQuery request, CancellationToken cancellationToken)
             {                
                 try
-                {
-                    var sales = await _context.Sales!.ToListAsync();
+                {                                      
+                    var sales = await _context.Sales.Include(c => c.SaleDetails).ToListAsync();                    
+
                     return Response<Sale>.Success(sales.AsReadOnly());
                 }
                 catch (Exception ex)

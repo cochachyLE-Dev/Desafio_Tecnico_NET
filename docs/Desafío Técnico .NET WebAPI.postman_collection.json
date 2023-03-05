@@ -1,0 +1,589 @@
+{
+	"info": {
+		"_postman_id": "2cabc6b7-4d59-4a6c-b013-4da64eb5b6c7",
+		"name": "Desafío Técnico .NET WebAPI",
+		"description": "...\n\nContact Support:\n Name: LUIS EDUARDO COCHACHI CHAMORRO\n Email: luis.cochachi@vaetech.net",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "22122837"
+	},
+	"item": [
+		{
+			"name": "api",
+			"item": [
+				{
+					"name": "Sale",
+					"item": [
+						{
+							"name": "/api/Sale/Register",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"serie\": \"F001\",\r\n  \"number\": \"1\",\r\n  \"sellerId\": 1,\r\n  \"total\": 430,  \r\n  \"saleDetails\": [\r\n    {\r\n      \"itemId\": 1,\r\n      \"itemName\": \"Servicio de Consultoría Financiera y Valorizaciones\",\r\n      \"qty\": 1,\r\n      \"price\": 430,\r\n      \"total\": 430      \r\n    }\r\n  ]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/api/Sale/Register",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"Sale",
+										"Register"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Success",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"description": "Added as a part of security scheme: bearer",
+												"key": "Authorization",
+												"value": "Bearer <token>"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/api/Sale/Register?Serie=qui cillum&Number=qui cillum&SellerId=-22493788&Total=-20285035.18112634&Seller.Id=-22493788&Seller.Name=qui cillum&Seller.Role=qui cillum&Seller.OutSourced=true&Seller.Active=true&SaleDetails=[object Object]&SaleDetails=[object Object]",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"Sale",
+												"Register"
+											],
+											"query": [
+												{
+													"key": "Serie",
+													"value": "qui cillum"
+												},
+												{
+													"key": "Number",
+													"value": "qui cillum"
+												},
+												{
+													"key": "SellerId",
+													"value": "-22493788"
+												},
+												{
+													"key": "Total",
+													"value": "-20285035.18112634"
+												},
+												{
+													"key": "Seller.Id",
+													"value": "-22493788"
+												},
+												{
+													"key": "Seller.Name",
+													"value": "qui cillum"
+												},
+												{
+													"key": "Seller.Role",
+													"value": "qui cillum"
+												},
+												{
+													"key": "Seller.OutSourced",
+													"value": "true"
+												},
+												{
+													"key": "Seller.Active",
+													"value": "true"
+												},
+												{
+													"key": "SaleDetails",
+													"value": "[object Object]"
+												},
+												{
+													"key": "SaleDetails",
+													"value": "[object Object]"
+												}
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "text",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "text/plain"
+										}
+									],
+									"cookie": [],
+									"body": ""
+								}
+							]
+						},
+						{
+							"name": "/api/Sale/Delete",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/api/Sale/Delete?serie=qui cillum&number=qui cillum",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"Sale",
+										"Delete"
+									],
+									"query": [
+										{
+											"key": "serie",
+											"value": "qui cillum"
+										},
+										{
+											"key": "number",
+											"value": "qui cillum"
+										}
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Success",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"description": "Added as a part of security scheme: bearer",
+												"key": "Authorization",
+												"value": "Bearer <token>"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/api/Sale/Delete?serie=qui cillum&number=qui cillum",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"Sale",
+												"Delete"
+											],
+											"query": [
+												{
+													"key": "serie",
+													"value": "qui cillum"
+												},
+												{
+													"key": "number",
+													"value": "qui cillum"
+												}
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "text",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "text/plain"
+										}
+									],
+									"cookie": [],
+									"body": ""
+								}
+							]
+						},
+						{
+							"name": "/api/Sale/Filter",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/api/Sale/Filter?filter=qui cillum",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"Sale",
+										"Filter"
+									],
+									"query": [
+										{
+											"key": "filter",
+											"value": "qui cillum"
+										}
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Success",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"description": "Added as a part of security scheme: bearer",
+												"key": "Authorization",
+												"value": "Bearer <token>"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/api/Sale/Filter?filter=qui cillum",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"Sale",
+												"Filter"
+											],
+											"query": [
+												{
+													"key": "filter",
+													"value": "qui cillum"
+												}
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "text",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "text/plain"
+										}
+									],
+									"cookie": [],
+									"body": ""
+								}
+							]
+						},
+						{
+							"name": "/api/Sale/All",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJiYXNpY3VzZXIiLCJqdGkiOiI3MTNlNDIxZC0xMzA0LTQwYTEtYWE3Ny00MWNhNzU3MGU3OTQiLCJlbWFpbCI6ImJhc2ljdXNlckB2YWV0ZWNoLm5ldCIsImlwIjoiMTkyLjE2OC4xLjciLCJleHAiOjE2NzgwNjIxNTUsImlzcyI6IklkZW50aXR5IiwiYXVkIjoiSWRlbnRpdHlVc2VyIn0.pvl2wCpMNJEJj82rZctt0YtwXdf51kkOqkT-d-pN98c",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/api/Sale/All",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"Sale",
+										"All"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Success",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"description": "Added as a part of security scheme: bearer",
+												"key": "Authorization",
+												"value": "Bearer <token>"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/api/Sale/All",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"Sale",
+												"All"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "text",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "text/plain"
+										}
+									],
+									"cookie": [],
+									"body": ""
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "/api/Account/authenticate",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"email\": \"basicuser@vaetech.net\",\n  \"password\": \"Abc123.\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:7071/api/Account/authenticate",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "7071",
+							"path": [
+								"api",
+								"Account",
+								"authenticate"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"description": "Added as a part of security scheme: bearer",
+										"key": "Authorization",
+										"value": "Bearer <token>"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"email\": \"non\",\n  \"password\": \"culpa dolore sunt\",\n  \"rememberMe\": false,\n  \"twoFactorCode\": \"sunt sed\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/api/Account/authenticate",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"Account",
+										"authenticate"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "text",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/plain"
+								}
+							],
+							"cookie": [],
+							"body": ""
+						}
+					]
+				},
+				{
+					"name": "/api/Seller/All",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/Seller/All?filter=",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"Seller",
+								"All"
+							],
+							"query": [
+								{
+									"key": "filter",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"description": "Added as a part of security scheme: bearer",
+										"key": "Authorization",
+										"value": "Bearer <token>"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/api/Seller/All?filter=qui cillum",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"Seller",
+										"All"
+									],
+									"query": [
+										{
+											"key": "filter",
+											"value": "qui cillum"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "text",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/plain"
+								}
+							],
+							"cookie": [],
+							"body": ""
+						}
+					]
+				},
+				{
+					"name": "/api/Service/All",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/Service/All?filter=",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"Service",
+								"All"
+							],
+							"query": [
+								{
+									"key": "filter",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"description": "Added as a part of security scheme: bearer",
+										"key": "Authorization",
+										"value": "Bearer <token>"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/api/Service/All?filter=qui cillum",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"Service",
+										"All"
+									],
+									"query": [
+										{
+											"key": "filter",
+											"value": "qui cillum"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "text",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/plain"
+								}
+							],
+							"cookie": [],
+							"body": ""
+						}
+					]
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJiYXNpY3VzZXIiLCJqdGkiOiJiY2Y0YzYzMi1iMTI1LTRjZTctODdlMS1kMWUyMGQ5Nzc0YTIiLCJlbWFpbCI6ImJhc2ljdXNlckB2YWV0ZWNoLm5ldCIsImlwIjoiMTkyLjE2OC4xLjciLCJleHAiOjE2NzgwNTY5MzYsImlzcyI6IklkZW50aXR5IiwiYXVkIjoiSWRlbnRpdHlVc2VyIn0.187GC6XbGCF3AmIM8CSQ_38amVfcP2FagOoOo1GYBuo",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "",
+			"type": "string"
+		}
+	]
+}

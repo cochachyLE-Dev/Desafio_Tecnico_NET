@@ -43,7 +43,14 @@ namespace API.Service.Features.SaleFeatures.Commands
                     _context.Sales?.Add(sale);
 
                     if (request.SaleDetails!.Any())
-                        _context.SaleDetails!.AddRange(request.SaleDetails!);
+                    {
+                        foreach (var detail in request.SaleDetails!)
+                        {
+                            detail.Serie = request.Serie;
+                            detail.Number = request.Number;
+                            _context.SaleDetails!.Add(detail);
+                        }
+                    }
 
                     await _context.SaveChangesAsync();
                 }
