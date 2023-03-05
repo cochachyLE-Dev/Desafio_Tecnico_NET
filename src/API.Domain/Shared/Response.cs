@@ -28,6 +28,9 @@ namespace API.Domain.Shared
     public enum StatusCode
     {
         OK = 0,
-        InternalError = 3
+        InternalError = 3,
+        PermissionDenied = 4,
+        InvalidArgument = 5,
+        Unauthenticated = 6
     }
 }
