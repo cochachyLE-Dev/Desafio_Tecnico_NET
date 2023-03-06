@@ -22,14 +22,10 @@ namespace APP.Data
                 return Response<T>.Fail(StatusCode.NotImplemented,"Not Implemented");
             }
         }
-        public async Task<Response<bool>> DeleteAsync(dynamic obj) 
+        public async Task<Response<bool>> DeleteAsync(params object[] param) 
         {
             if (typeof(T) == typeof(Sale))
-                return await DeleteAsync<bool>(new[] 
-                { 
-                    new KeyValuePair<string,object>(nameof(Sale.Serie), obj.Serie),
-                    new KeyValuePair<string,object>(nameof(Sale.Number), obj.Number),
-                });
+                return await DeleteAsync<bool>(string.Format("api/Sale/Delete/{0}/{1}", param[0], param[1]));
             else
             {
                 return Response<bool>.Fail(StatusCode.NotImplemented, "Not Implemented");
@@ -43,6 +39,14 @@ namespace APP.Data
                 return await GetAsync<T>("api/Vendor/All");
             else if (typeof(T) == typeof(Service))
                 return await GetAsync<T>("api/Service/All");
+            else
+            {
+                return Response<T>.Fail(StatusCode.NotImplemented, "Not Implemented");
+            }
+        }
+        public async Task<Response<T>> FirstOrDefaultAsync(params object[] param) {
+            if (typeof(T) == typeof(Sale))
+                return await GetAsync<T>(string.Format("api/Sale/Single/{0}/{1}", param[0], param[1]));
             else
             {
                 return Response<T>.Fail(StatusCode.NotImplemented, "Not Implemented");
@@ -111,9 +115,23 @@ namespace APP.Data
         {
             return Task.FromResult(Response<TResult>.Fail(StatusCode.NotImplemented, "Not Implemented"));
         }
-        private Task<Response<TResult>> DeleteAsync<TResult>(params KeyValuePair<string, object>[] param)
+        private async Task<Response<TResult>> DeleteAsync<TResult>(string query)
         {
-            return Task.FromResult(Response<TResult>.Fail(StatusCode.NotImplemented, "Not Implemented"));
+            var client = new HttpClient();
+            var request = new HttpRequestMessage(HttpMethod.Post, $"{RequestUri}/{query}");
+            request.Headers.Add("Authorization", $"Bearer {await GetToken()}");
+            var response = await client.SendAsync(request);            
+
+            if (response.StatusCode == System.Net.HttpStatusCode.OK)
+            {
+                string content = await response.Content!.ReadAsStringAsync();
+                return JsonSerializer.Deserialize<Response<TResult>>(content)!;
+            }
+            else
+            {
+                string content = await response.Content!.ReadAsStringAsync();
+                return Response<TResult>.Fail(StatusCode.InternalError, content);
+            }
         }
     }
 }

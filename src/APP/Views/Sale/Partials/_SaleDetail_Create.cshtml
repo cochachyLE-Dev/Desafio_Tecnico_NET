@@ -1,0 +1,48 @@
+﻿@model IEnumerable<SaleDetail>
+
+<div id="SaleDetail">
+    <div class="row g-4 mb-3">
+        <div class="col-sm-auto">
+            <div>                
+                <button type="submit" class="btn btn-success add-btn" id="add-btn"><i class="ri-add-line align-bottom me-1"></i>Add Service</button>                
+            </div>
+        </div>
+    </div>
+
+    <div class="table-responsive table-card mt-3 mb-1">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Serie</th>
+                    <th>Number</th>
+                    <th>Item</th>
+                    <th>Name</th>
+                    <th>Unidad</th>
+                    <th>Price</th>
+                    <th>Total</th>
+                </tr>
+            </thead>
+            <tbody>        
+                @foreach (var item in Model!)
+                {
+                    <tr>
+                        <td>@Html.DisplayFor(p => item.Serie)</td>
+                        <td>@Html.DisplayFor(p => item.Number)</td>
+                        <td>@Html.DisplayFor(p => item.ItemId)</td>
+                        <td>@Html.DisplayFor(p => item.ItemName)</td>
+                        <td>@Html.DisplayFor(p => item.Service!.Unidad)</td>
+                        <td>@Html.Raw($"{item.Service!.Moneda}{item.Price}")</td>
+                        <td>@Html.DisplayFor(p => item.Total)</td>
+                    </tr>
+                }        
+            </tbody>
+        </table>
+        <div class="noresult" style="display: @Html.Raw(Model.Any() ? "none" : "block")">
+            <div class="text-center">
+                <p class="text-muted mb-0">
+                    0 items
+                </p>
+            </div>
+        </div>
+    </div>
+</div>

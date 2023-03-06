@@ -41,6 +41,12 @@ namespace APP.Controllers
                 Vendors = new SelectList(vendors.List!, dataValueField: nameof(Vendor.Name), dataTextField: nameof(Vendor.Name))
             });
         }
+        [HttpGet]        
+        public async Task<ActionResult> GetDetail(string serie, string number)
+        {
+            var sale = await _context.Sales!.FirstOrDefaultAsync(serie, number);
+            return PartialView("~/Views/Sale/Partials/_SaleDetail_List.cshtml", sale.List!.First().SaleDetails);
+        }
 
         // GET: SaleController/Details/5
         public ActionResult Details(int id)
@@ -49,10 +55,16 @@ namespace APP.Controllers
         }
 
         // GET: SaleController/Create
-        public async Task<ActionResult> Create([FromBody] Sale sale)
+        public async Task<ActionResult> Create()
         {
-            await _context.Sales!.RegisterAsync(sale);
-            return View();
+            var vendors = await _context.Vendors!.GetAllAsync();
+            //await _context.Sales!.RegisterAsync(sale);
+            return View(new SaleViewModelCreate
+            {
+                Currencies = new SelectList(SaleViewModelCreate.GetCurrencies()),
+                Vendors = new SelectList(vendors.List!, dataValueField: nameof(Vendor.Name), dataTextField: nameof(Vendor.Name)),
+                SaleDetails = new List<SaleDetail>()
+            }); ;
         }
 
         // POST: SaleController/Create
@@ -70,31 +82,11 @@ namespace APP.Controllers
             }
         }
 
-        // GET: SaleController/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
-
-        // POST: SaleController/Edit/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
         // GET: SaleController/Delete/5
-        public ActionResult Delete(int id)
+        public async Task<ActionResult> Delete(string serie, string number)
         {
-            return View();
+            await _context.Sales!.DeleteAsync(serie, number);
+            return RedirectToAction("Index");
         }
 
         // POST: SaleController/Delete/5

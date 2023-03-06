@@ -2,17 +2,18 @@
 @model APP.Models.ViewModels.SaleViewModel
 
 @{
-    ViewData["Title"] = "Sale";
+    ViewData["Title"] = "Sales";
 }
 
-<h1>Sale</h1>
+<h1>Sales</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
+<p>    
+    @Html.ActionLink("Create New", "Create") 
 </p>
 
 <form asp-controller="Sale" asp-action="Index">
     <p>
+        Vendor:
         <select asp-for="VendorName" asp-items="Model.Vendors">
             <option value="">All</option>
         </select>
@@ -69,11 +70,137 @@
                 @Html.Raw(item.DateOfIssue.ToString("dd/MM/yyyy hh:mm tt"))
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                <a href="javascript:getDetail('@Html.Raw(item.Serie)', '@Html.Raw(item.Number)')">Select</a> |
+                @Html.ActionLink("Delete", "Delete", new { serie=item.Serie, number=item.Number })
             </td>
         </tr>
         }
     </tbody>
 </table>
+
+<div id="detail">
+    @await Html.PartialAsync("Partials/_SaleDetail_List",Model.Sales?.FirstOrDefault()?.SaleDetails)
+</div>
+
+@section scripts{
+
+    <script type="text/javascript">
+        window.addEventListener("load", function () {             
+            getDetail = function (serie, number) 
+            {
+                let url = `@Url.ActionLink("GetDetail","Sale")?Serie=${serie}&Number=${number}`;                
+                let xhr = new XMLHttpRequest();                
+                xhr.open("GET", url, true);                
+                xhr.onload = function (e) {
+                    if (xhr.readyState === 4) {
+                        if (xhr.status === 200) {                            
+                            setDetail(xhr.responseText);                            
+                        } else {
+                            console.log("No se pudo conectar al servidor.");
+                        }
+                    }
+                };
+                xhr.onerror = function (ex) {
+                    console.log("Error", ex.message);
+                };
+                xhr.send();
+            };
+            setDetail = function (data){
+                let detail = document.getElementById("detail");
+                detail.innerHTML = data;
+            }
+            function serializeForm(form, tags) {
+                let data = '';
+                let values = (tags ?? 'input,select').split(',');
+                for (let tag of values) {
+                    form.getElementsByTagName(tag)
+                        .forEach(function (item) {
+                            if (item.name) {
+                                let fields = item.name.split('.');
+                                fields.push(item.value);
+                                data = [fields].reduce(function (o, n, i) {
+                                    let j = encodeURI(n[0]);
+                                    for (let ii in n.slice(1)) {
+                                        if (ii == 0) continue;
+                                        j += encodeURI(`[${n[ii]}]`);
+                                    }
+                                    j += `=${encodeURI(n[n.length - 1])}`;
+                                    return `${o}${!o ? '' : '&'}${j}`;
+                                }, data);
+                            }
+                        });
+                }
+                return data;
+            }
+            function serializeObject(form, tags) {
+                let data = {};
+                let values = (tags ?? 'input,select').split(',');
+                for (let tag of values) {
+                    form.getElementsByTagName(tag).forEach(function (item) {
+                        if (item.name) {
+                            let fields = item.name.split('.');
+                            fields.push(item.value);
+                            data = [fields].reduce(function (o, n, i) {
+                                let j = {};
+                                for (let i in n.slice(1)) {
+                                    let b = i > n.length - 3;
+                                    let v = new Function('return ' + `{${n[i]}:${b ? `"${n[n.length - 1]}"` : '{}'}}`)();
+                                    switch (Number(i)) {
+                                        case 0:
+                                            Object.assign(j, v);
+                                            break;
+                                        case 1:
+                                            Object.assign(j[n[0]], v);
+                                            break;
+                                        case 2:
+                                            Object.assign(j[n[0]][n[1]], v);
+                                            break;
+                                        case 3:
+                                            Object.assign(j[n[0]][n[1]][n[2]], v);
+                                            break;
+                                        case 4:
+                                            Object.assign(j[n[0]][n[1]][n[2]][n[3]], v);
+                                            break;
+                                        case 5:
+                                            Object.assign(j[n[0]][n[1]][n[2]][n[3]][n[4]], v);
+                                            break;
+                                        case 6:
+                                            Object.assign(j[n[0]][n[1]][n[2]][n[3]][n[4]][n[5]], v);
+                                            break;
+                                    }
+                                }
+                                switch (n.length - 1) {
+                                    case 1:
+                                        o[n[0]] = j[n[0]];
+                                        break;
+                                    case 2:
+                                        o[n[0]] ??= {};
+                                        Object.assign(o[n[0]], j[n[0]]);
+                                        break;
+                                    case 3:
+                                        o[n[0]] ??= {}, o[n[0]][n[1]] ??= {};
+                                        Object.assign(o[n[0]][n[1]], j[n[0]][n[1]]);
+                                        break;
+                                    case 4:
+                                        o[n[0]] ??= {}, o[n[0]][n[1]] ??= {}, o[n[0]][n[1]][n[2]] ??= {};
+                                        Object.assign(o[n[0]][n[1]][n[2]], j[n[0]][n[1]][n[2]]);
+                                        break;
+                                    case 5:
+                                        o[n[0]] ??= {}, o[n[0]][n[1]] ??= {}, o[n[0]][n[1]][n[2]] ??= {}, o[n[0]][n[1]][n[2]][n[3]] ??= {};
+                                        Object.assign(o[n[0]][n[1]][n[2]][n[3]], j[n[0]][n[1]][n[2]][n[3]]);
+                                        break;
+                                    case 6:
+                                        o[n[0]] ??= {}, o[n[0]][n[1]] ??= {}, o[n[0]][n[1]][n[2]] ??= {}, o[n[0]][n[1]][n[2]][n[3]][n[4]] ??= {};
+                                        Object.assign(o[n[0]][n[1]][n[2]][n[3]][n[4]], j[n[0]][n[1]][n[2]][n[3]][n[4]]);
+                                        break;
+                                }
+                                return data;
+                            }, data);
+                        }
+                    });
+                }
+                return data;
+            };
+        });
+    </script>
+}

@@ -1,0 +1,29 @@
+﻿@model IEnumerable<SaleDetail>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Serie</th>
+            <th>Number</th>
+            <th>Item</th>
+            <th>Name</th>
+            <th>Unidad</th>
+            <th>Price</th>
+            <th>Total</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(var item in Model)        
+        {
+            <tr>
+                <td>@Html.DisplayFor(p => item.Serie)</td>
+                <td>@Html.DisplayFor(p => item.Number)</td>
+                <td>@Html.DisplayFor(p => item.ItemId)</td>
+                <td>@Html.DisplayFor(p => item.ItemName)</td>
+                <td>@Html.DisplayFor(p => item.Service.Unidad)</td>
+                <td>@Html.Raw($"{item.Service!.Moneda}{item.Price}")</td>
+                <td>@Html.DisplayFor(p => item.Total)</td>
+            </tr>
+        }
+    </tbody>
+</table>
