@@ -38,7 +38,7 @@ namespace API.Service.Features.SaleFeatures.Commands
                     var sale = new Sale();
                     sale.Number = request.Number;
                     sale.Serie = request.Serie;
-                    sale.SellerId = request.SellerId;
+                    sale.VendorId = request.SellerId;
                     sale.Total = request.Total;
                     _context.Sales?.Add(sale);
 

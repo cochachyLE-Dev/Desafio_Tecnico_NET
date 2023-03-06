@@ -1,7 +1,10 @@
+using APP.Data;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.AddSingleton<IApiContext, ApiContext>();
 
 var app = builder.Build();
 

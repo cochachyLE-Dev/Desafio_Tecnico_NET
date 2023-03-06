@@ -8,7 +8,7 @@ namespace API.Persistence
     {
         DbSet<Sale> Sales { get; set; }
         DbSet<SaleDetail> SaleDetails { get; set; }
-        DbSet<Seller> Sellers { get; set; }
+        DbSet<Vendor> Vendors { get; set; }
         DbSet<Service> Services { get; set; }
 
         Task<int> SaveChangesAsync();

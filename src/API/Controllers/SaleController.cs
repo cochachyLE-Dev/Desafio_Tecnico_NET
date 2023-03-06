@@ -25,7 +25,7 @@ namespace API.Controllers
             return Ok(await _mediator!.Send(new CreateSaleCommand { 
                 Serie = request.Serie,
                 Number = request.Number,
-                SellerId = request.SellerId,
+                SellerId = request.VendorId,
                 Total = request.Total,
                 SaleDetails = request.SaleDetails
             }));
@@ -39,7 +39,7 @@ namespace API.Controllers
                 Number = number
             }));
         }
-        [HttpGet("Filter")]
+        [HttpGet("Search")]
         public async Task<IActionResult> GetByFilterAsync(string filter)
         {
             return Ok(await _mediator!.Send(new GetSalesByFilterQuery(){ Filter = filter }));

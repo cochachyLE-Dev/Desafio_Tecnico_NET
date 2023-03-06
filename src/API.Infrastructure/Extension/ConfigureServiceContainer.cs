@@ -32,15 +32,20 @@ namespace API.Infrastructure.Extension
 
                 var task = Task.Run(async () =>
                 {
-                    foreach (var seller in DefaultSellers.SellerList())
+                    foreach (var seller in DefaultVendors.VendorList())
                     { 
-                        if (!await applicationDbContext.Sellers!.AnyAsync(c => c.Id == seller.Id))
-                            applicationDbContext.Sellers!.Add(seller);
+                        if (!await applicationDbContext.Vendors!.AnyAsync(c => c.Id == seller.Id))
+                            applicationDbContext.Vendors!.Add(seller);
                     }
                     foreach (var service in DefaultServices.ServiceList())
                     {
                         if (!await applicationDbContext.Services!.AnyAsync(c => c.Id == service.Id))
                             applicationDbContext.Services!.Add(service);
+                    }
+                    foreach (var sale in DefaultSales.SaleList())
+                    {
+                        if (!await applicationDbContext.Sales!.AnyAsync(c => c.Serie == sale.Serie && c.Number == sale.Number))
+                            applicationDbContext.Sales!.Add(sale);
                     }
                     
                     await applicationDbContext.SaveChangesAsync();

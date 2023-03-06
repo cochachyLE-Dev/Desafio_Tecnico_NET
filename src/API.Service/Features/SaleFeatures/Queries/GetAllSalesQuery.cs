@@ -25,7 +25,7 @@ namespace API.Service.Features.SaleFeatures.Queries
             {                
                 try
                 {                    
-                    var sales = await _context.Sales.Include(i => i.SaleDetails)!.ThenInclude(i => i.Service).Include(i => i.Seller).ToListAsync();
+                    var sales = await _context.Sales.Include(i => i.SaleDetails)!.ThenInclude(i => i.Service).Include(i => i.Vendor).ToListAsync();
                     return Response<Sale>.Success(sales.AsReadOnly());
                 }
                 catch (Exception ex)

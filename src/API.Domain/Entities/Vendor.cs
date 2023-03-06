@@ -1,7 +1,7 @@
 ﻿namespace API.Domain.Entities
 {
     // Asesores comerciales (Vendedores)
-    public class Seller
+    public class Vendor
     {
         public int Id { get; set; }        
         public string? Name { get; set; }

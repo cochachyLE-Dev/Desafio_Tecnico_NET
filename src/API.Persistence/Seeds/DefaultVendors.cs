@@ -8,27 +8,27 @@ using System.Threading.Tasks;
 
 namespace API.Persistence.Seeds
 {
-    public class DefaultSellers
+    public class DefaultVendors
     {
-        public static List<Seller> SellerList()
+        public static List<Vendor> VendorList()
         {
-            return new List<Seller>
+            return new List<Vendor>
             {
-                new Seller{ 
+                new Vendor{ 
                     Id = 1,
                     Name = "Peter Pearson Consulting",                    
                     Role = "Asesor comercial",
                     OutSourced = true,
                     Active = true
                 },
-                new Seller{
+                new Vendor{
                     Id = 2,
                     Name = "Luis Eduardo Cochachi Chamorro",                    
                     Role = "Asesor comercial",
                     OutSourced = true,
                     Active = true
                 },
-                new Seller{
+                new Vendor{
                     Id = 3,
                     Name = "Maria Augusta Lopez Aliaga Petrozzi",                    
                     Role = "Asesor comercial",
