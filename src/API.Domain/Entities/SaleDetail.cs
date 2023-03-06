@@ -9,7 +9,7 @@
         public int Qty { get; set; }
         public double Price { get; set; }
         public double Total { get; set; }
-
+        public int ServiceId { get; set; }
         public Service? Service { get; set; }
     }
 }
