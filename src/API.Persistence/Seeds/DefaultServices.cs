@@ -14,21 +14,21 @@ namespace API.Persistence.Seeds
                     Id = 1,
                     Name = "Servicio de Consultoría Empresarial y Contable",
                     Unidad = "Hora",
-                    Moneda = "S/",
+                    Currency = "S/",
                     Price = 400
                 },
                 new Service{
                     Id = 2,
                     Name = "Servico de Asesoría y Consultoría Legal Corporativa",
                     Unidad = "Hora",
-                    Moneda = "S/",
+                    Currency = "S/",
                     Price = 420
                 },
                 new Service{
                     Id = 3,
                     Name = "Servicio de Consultoría Financiera y Valorizaciones",
                     Unidad = "Hora",
-                    Moneda = "S/",
+                    Currency = "S/",
                     Price = 450
                 }
             };

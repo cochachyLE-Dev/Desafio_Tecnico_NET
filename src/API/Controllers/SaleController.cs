@@ -49,5 +49,10 @@ namespace API.Controllers
         {
             return Ok(await _mediator!.Send(new GetAllSalesQuery()));
         }
+        [HttpGet("Single/{serie}/{number}")]
+        public async Task<IActionResult> GetDetailByNumberAsync(string serie, string number)
+        {
+            return Ok(await _mediator!.Send(new GetSaleDetailsByNumberQuery() { Serie = serie, Number = number }));
+        }
     }
 }

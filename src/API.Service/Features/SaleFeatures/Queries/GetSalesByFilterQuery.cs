@@ -26,7 +26,7 @@ namespace API.Service.Features.SaleFeatures.Queries
             {
                 try
                 {
-                    var sales = await _context.Sales.Where(c => string.IsNullOrEmpty(request.Filter) || c.Vendor!.Name!.ToLower().Contains(request.Filter!.ToLower())).Include(i => i.SaleDetails)!.ThenInclude(i => i.Service).Include(i => i.Vendor).ToListAsync();                    
+                    var sales = await _context.Sales.Where(c => string.IsNullOrEmpty(request.Filter) || c.Vendor!.Name!.ToLower().Contains(request.Filter!.ToLower())).Include(i => i.Vendor).ToListAsync();
                     return Response<Sale>.Success(sales.AsReadOnly());
                 }
                 catch (Exception ex)
